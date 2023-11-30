@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+    int data;
+    node *next;
+};
+class Queue
+{
+    node *front;
+    node *rear;
+
+public:
+    Queue()
+    {
+        front = NULL;
+        rear = NULL;
+    }
+    // Function
+    bool isEmpty()
+    {
+        if (front == NULL)
+        {
+            return true;
+        }
+        return false;
+    }
+    // Function
+    bool enQueue(int item)
+    {
+        node *record = new node();
+        record->data = item;
+        record->next = NULL;
+        if (front == NULL)
+        {
+            front = record;
+            rear = record;
+        }
+        else
+        {
+            rear->next = record;
+            rear = record;
+        }
+        return true;
+    }
+    // Function
+    int deQueue()
+    {
+        if (isEmpty())
+        {
+            cout << "Queue is Empty" << endl;
+            return 0;
+        }
+        else
+        {
+            node *temp = front;
+            int item = temp->data;
+            front = front->next;
+            delete temp;
+            return item;
+        }
+    }
+    void displayQueue()
+    {
+        node *temp = front;
+        if (isEmpty())
+        {
+            cout << "Queue is Empty" << endl;
+        }
+        else
+        {
+            while (temp != NULL)
+            {
+                cout << temp->data << "\t";
+                temp = temp->next;
+            }
+            cout << endl;
+        }
+    }
+};

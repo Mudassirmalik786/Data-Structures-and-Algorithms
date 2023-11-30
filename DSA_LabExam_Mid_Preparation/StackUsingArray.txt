@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+const int MAX = 20;
+class Stack
+{
+    int top;
+    int myStack[MAX]; // stack array
+public:
+    Stack()
+    {
+        top = -1;
+    }
+
+    // pushes element on to the stack
+    bool push(int item)
+    {
+        if (top >= (MAX - 1))
+        {
+            cout << "Stack Overflow!!!";
+            return false;
+        }
+        else
+        {
+            top = top + 1;
+            myStack[top] = item;
+            return true;
+        }
+    }
+    // removes or pops elements out of the stack
+    int pop()
+    {
+        if (top < 0)
+        {
+            cout << "Stack Underflow!!";
+            return 0;
+        }
+        else
+        {
+            int item = myStack[top];
+            top = top - 1;
+            return item;
+        }
+    }
+    // check if stack is empty
+    bool isEmpty()
+    {
+        return (top < 0);
+    }
+    void clear()
+    {
+        top = -1;
+    }
+};

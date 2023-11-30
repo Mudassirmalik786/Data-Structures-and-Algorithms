@@ -1,0 +1,63 @@
+#include<iostream>
+using namespace std;
+const int MAX = 5;
+class CircularQueue
+{
+ int myQueue[MAX];
+ int front, rear;
+public:
+ CircularQueue()
+ {
+ front = -1;
+ rear = -1;
+ }
+bool isEmpty()
+{
+ if (front == -1)
+ {
+ return true;
+ }
+ return false;
+}
+bool isFull()
+{
+ if ((front == 0 && rear == MAX - 1) ||
+ (front == rear + 1))
+ {
+ return true;
+ }
+ return false;
+}
+bool enQueue(int value)
+{
+ if (isFull())
+ {
+ cout << "Queue is Full" << endl;
+ return false;
+ }
+ if (isEmpty())
+ {
+ front++;
+ }
+ rear = (rear + 1) % MAX;
+ myQueue[rear] = value;
+ return true;
+}
+bool deQueue()
+{
+ if (isEmpty())
+ {
+ cout << "Queue is Empty" << endl;
+ return false;
+ }
+ int value = myQueue[front];
+ if (front == rear)
+ {
+ front = -1;
+ rear = -1;
+ return true;
+ }
+ front = (front + 1) % MAX;
+ return true;
+}
+};

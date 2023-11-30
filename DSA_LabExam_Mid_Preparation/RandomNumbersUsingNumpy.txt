@@ -1,0 +1,17 @@
+import numpy as np
+
+# Generate a random integer
+random_integer = np.random.randint(1, 100)  # Generates a random integer between 1 and 99
+print("Random Integer:", random_integer)
+
+# Generate a random float
+random_float = np.random.rand()  # Generates a random float between 0 and 1
+print("Random Float:", random_float)
+
+# Generate an array of random integers
+random_integer_array = np.random.randint(1, 100, size=5)  # Generates an array of 5 random integers
+print("Random Integer Array:", random_integer_array)
+
+# Generate an array of random floats
+random_float_array = np.random.rand(5)  # Generates an array of 5 random floats
+print("Random Float Array:", random_float_array)

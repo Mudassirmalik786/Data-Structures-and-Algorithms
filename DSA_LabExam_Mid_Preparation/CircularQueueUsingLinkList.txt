@@ -1,0 +1,92 @@
+#include<iostream>
+using namespace std;
+
+// Creating a class to represent individual elements in the queue
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+// Implementing a circular queue using a linked list
+class CircularQueue {
+private:
+    Node* front;
+    Node* rear;
+
+public:
+    // Initializing the queue with empty pointers
+    CircularQueue() {
+        front = nullptr;
+        rear = nullptr;
+    }
+
+    // Checking if the queue is currently empty
+    bool isEmpty() {
+        if (front == nullptr) {
+            cout << "Oops! The queue is Empty." << endl;
+            return true;
+        }
+        return false;
+    }
+
+    // Adding a new element to the end of the queue
+    void enQueue(int value) {
+        Node* newNode = new Node(value);
+
+        if (isEmpty()) {
+            front = newNode;
+        } else {
+            rear->next = newNode;
+        }
+
+        rear = newNode;
+        rear->next = front;  // Ensuring the queue stays circular
+        cout << "New Arrival: " << value << " has joined the queue." << endl;
+    }
+
+    // Removing an element from the front of the queue
+    void deQueue() {
+        if (isEmpty()) {
+            return;
+        }
+
+        int value = front->data;
+        Node* temp = front;
+
+        if (front == rear) {
+            front = nullptr;
+            rear = nullptr;
+        } else {
+            front = front->next;
+            rear->next = front;  // Adjusting for the circular structure
+        }
+
+        delete temp;
+        cout << "Departure: " << value << " has left the queue." << endl;
+    }
+};
+
+int main() {
+    CircularQueue myQueue;
+
+    // Welcoming new arrivals
+    myQueue.enQueue(10);
+    myQueue.enQueue(20);
+    myQueue.enQueue(30);
+
+    // Handling departures
+    myQueue.deQueue();
+    myQueue.deQueue();
+    myQueue.deQueue();
+
+    // Trying to remove from an already empty queue
+    myQueue.deQueue();
+
+    return 0;
+}

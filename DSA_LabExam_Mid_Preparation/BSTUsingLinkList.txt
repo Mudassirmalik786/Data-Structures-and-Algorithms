@@ -1,0 +1,126 @@
+struct TreeNode
+{
+ int val;
+ TreeNode *left;
+ TreeNode *right;
+};
+class binarySearchTree
+{
+ TreeNode *root;
+public:
+ binarySearchTree()
+ {
+ root = NULL;
+ }
+TreeNode *createNode(int value)
+ {
+ TreeNode *record = new TreeNode();
+ record->val = value;
+ record->left = NULL;
+ record->right = NULL;
+ return record;
+ }
+void insert(TreeNode *node)
+{
+ TreeNode *prev = root;
+ TreeNode *next = root;
+ if (root == NULL)
+ {
+ root = node;
+ return;
+ }
+ while (next != NULL)
+ {
+ prev = next;
+ if (node->val < prev->val)
+ next = prev->left;
+ else
+ next = prev->right;
+ }
+ if (node->val >= prev->val)
+ prev->right = node;
+ else
+ prev->left = node;
+}
+bool search(int value)
+{
+ TreeNode *temp = root;
+ if (root == NULL)
+ {
+ return false;
+ }
+ while (temp != NULL)
+ {
+ if (temp->val == value)
+ return true;
+ if (value < temp->val)
+ temp = temp->left;
+ else
+ temp = temp->right;
+ }
+ return false;
+}
+bool deleteValue(int value)
+ {
+ TreeNode *prev = root;
+ TreeNode *next = root;
+ while (next != NULL && next->val != value)
+ {
+ prev = next;
+ if (value < prev->val)
+ next = prev->left;
+ else
+ next = prev->right;
+ }
+ if (next == NULL)
+ {
+ cout << "Value not Found" << endl;
+ return false;
+ }
+ else if (next->left == NULL && next->right == NULL)
+ {
+ if (next == prev->left)
+ prev->left = NULL;
+ else
+ prev->right = NULL;
+ delete next;
+ return true;
+ }
+ else if (next->left == NULL || next->right == NULL)
+ {
+ TreeNode *newCurr;
+ if (next->left == NULL)
+ newCurr = next->right;
+ else
+ newCurr = next->left;
+ if (prev == root)
+ {
+ delete next;
+ root = newCurr;
+ return true;
+ }
+ if (next == prev->left)
+ prev->left = newCurr;
+ else
+ prev->right = newCurr;
+ delete next;
+ }
+ else
+{
+ TreeNode *p = NULL;
+ TreeNode *temp;
+ temp = next->right;
+ while (temp->left != NULL)
+ {
+ p = temp;
+ temp = temp->left;
+ }
+ if (p != NULL)
+ p->left = temp->right;
+ else
+ next->right = temp->right;
+ next->val = temp->val;
+ delete temp;
+}
+return true;
+};

@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+ int data;
+ struct node* next;
+};
+class Stack
+{
+ struct node* top;
+public:
+ Stack()
+ {
+ top = NULL;
+ }
+bool push(int item)
+ {
+ struct node* record = new node();
+ record->data = item;
+ record->next = top;
+ top = record;
+ return true;
+ }
+int pop()
+ {
+ if(top == NULL)
+ {
+ cout << "Stack Underflow!!";
+ return 0;
+ }
+ else
+ {
+ 
+ struct node* temp;
+ temp = top;
+ top = top->next;
+ int item = temp->data;
+ delete temp;
+ return item;
+ }
+ }
+};

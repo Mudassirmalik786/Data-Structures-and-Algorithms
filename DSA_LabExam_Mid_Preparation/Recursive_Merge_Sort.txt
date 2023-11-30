@@ -1,0 +1,46 @@
+def recursive_merge_sort(arr):
+    if len(arr) > 1:
+        # Find the middle of the array
+        mid = len(arr) // 2
+
+        # Split the array into two halves
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        # Recursive call on each half
+        recursive_merge_sort(left_half)
+        recursive_merge_sort(right_half)
+
+        # Merge the sorted halves
+        merge(arr, left_half, right_half)
+
+
+def merge(arr, left_half, right_half):
+    i = j = k = 0
+
+    # Compare elements from both halves and merge them in sorted order
+    while i < len(left_half) and j < len(right_half):
+        if left_half[i] < right_half[j]:
+            arr[k] = left_half[i]
+            i += 1
+        else:
+            arr[k] = right_half[j]
+            j += 1
+        k += 1
+
+    # Check if any elements are remaining in either left or right half
+    while i < len(left_half):
+        arr[k] = left_half[i]
+        i += 1
+        k += 1
+
+    while j < len(right_half):
+        arr[k] = right_half[j]
+        j += 1
+        k += 1
+
+# Example usage:
+my_array = [64, 34, 25, 12, 22, 11, 90]
+recursive_merge_sort(my_array)
+
+print("Sorted array:", my_array)

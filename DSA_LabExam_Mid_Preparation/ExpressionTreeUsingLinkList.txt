@@ -1,0 +1,89 @@
+class ExpressionTree
+{
+public:
+ TreeNode *root;
+ ExpressionTree()
+ {
+ root = NULL;
+ }
+ TreeNode *createNode(string val)
+ {
+ TreeNode *record = new TreeNode();
+ record->val = val;
+ record->left = NULL;
+ record->right = NULL;
+ return record;
+ }
+TreeNode *createNodeWithChildren(string
+val, TreeNode *left, TreeNode *right)
+{
+ TreeNode *record = new TreeNode();
+ record->val = val;
+ record->left = left;
+ record->right = right;
+ return record;
+}
+bool isOperator(string value)
+{
+ if (value == “+” || value == “-” ||
+value == “*” || value == “/”)
+ return true;
+ return false;
+}
+void createExpressionTree(vector<string> expression){
+ stack<TreeNode *> s;
+ for (int x = 0; x < expression.size(); x++){
+ if (isOperator(expression[x])){
+ TreeNode *rNode = s.top();
+ s.pop();
+ TreeNode *lNode = s.top();
+ s.pop();
+ TreeNode *node = createNodeWithChildren(expression[x], lNode, rNode);
+ s.push(node);
+ }
+ else{
+ TreeNode *node = createNode(expression[x]);
+ s.push(node);
+ }
+ }
+ root = s.top();
+}
+void inOrderTraversal(TreeNode *node)
+ {
+ if (node == NULL)
+ {
+ return;
+ }
+ if (isOperator(node->val))
+{
+ cout << "( ";
+}
+ inOrderTraversal(node->left);
+ cout << node->val << " ";
+ inOrderTraversal(node->right);
+ if (isOperator(node->val))
+{
+ cout << ")";
+}
+ }
+void preOrderTraversal(TreeNode *node)
+ {
+ if (node == NULL)
+ {
+ return;
+ }
+ cout << node->val << " ";
+ preOrderTraversal(node->left);
+ preOrderTraversal(node->right);
+ }
+void postOrderTraversal(TreeNode *node)
+ {
+ if (node == NULL)
+ {
+ return;
+ }
+ postOrderTraversal(node->left);
+ postOrderTraversal(node->right);
+ cout << node->val << " ";
+ }
+};

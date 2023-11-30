@@ -1,0 +1,27 @@
+def recursive_insertion_sort(arr, n=None):
+    # Set the default value of n to the length of the array
+    if n is None:
+        n = len(arr)
+
+    # Base case: If the array has only one element, it is already sorted
+    if n <= 1:
+        return
+
+    # Recursive call to sort the first n-1 elements
+    recursive_insertion_sort(arr, n - 1)
+
+    # Insert the last element in its correct position in the sorted part
+    last_element = arr[n - 1]
+    j = n - 2
+
+    while j >= 0 and arr[j] > last_element:
+        arr[j + 1] = arr[j]
+        j -= 1
+
+    arr[j + 1] = last_element
+
+# Example usage:
+my_array = [64, 34, 25, 12, 22, 11, 90]
+recursive_insertion_sort(my_array)
+
+print("Sorted array:", my_array)

@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+const int MAX_SIZE = 10;
+class Queue
+{
+    int myqueue[MAX_SIZE], front, rear;
+
+public:
+    Queue()
+    {
+        front = -1;
+        rear = -1;
+    }
+    bool isFull()
+    {
+        if (rear == MAX_SIZE - 1)
+        {
+            return true;
+        }
+        return false;
+    }
+    bool isEmpty()
+    {
+        if (front == -1)
+            return true;
+        else
+            return false;
+    }
+    bool enQueue(int value)
+    {
+        if (isFull())
+        {
+            cout << "Queue is full!!";
+            cout << endl;
+            return false;
+        }
+        else
+        {
+            if (isEmpty())
+            {
+                front = 0;
+            }
+            rear = rear + 1;
+            myqueue[rear] = value;
+            return true;
+        }
+    }
+    int deQueue()
+    {
+        int value;
+        if (isEmpty())
+        {
+            cout << "Queue is empty!!" << endl;
+            return -1;
+        }
+        else
+        {
+            value = myqueue[front];
+            for (int x = 0; x < rear; x++)
+            {
+                myqueue[x] = myqueue[x + 1];
+            }
+            rear--;
+            return value;
+        }
+    }
+};

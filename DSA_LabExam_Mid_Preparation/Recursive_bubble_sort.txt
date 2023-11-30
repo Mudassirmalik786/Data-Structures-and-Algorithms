@@ -1,0 +1,22 @@
+def recursive_bubble_sort(arr, n=None):
+    # Set the default value of n to the length of the array
+    if n is None:
+        n = len(arr)
+
+    # Base case: If the array has only one element, it is already sorted
+    if n == 1:
+        return
+
+    # One pass of Bubble Sort. After this loop, the largest element is moved to the end.
+    for i in range(n - 1):
+        if arr[i] > arr[i + 1]:
+            arr[i], arr[i + 1] = arr[i + 1], arr[i]
+
+    # Recursive call for the remaining elements (excluding the last one)
+    recursive_bubble_sort(arr, n - 1)
+
+# Example usage:
+my_array = [64, 34, 25, 12, 22, 11, 90]
+recursive_bubble_sort(my_array)
+
+print("Sorted array:", my_array)

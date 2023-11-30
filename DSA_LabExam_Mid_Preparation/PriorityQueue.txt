@@ -1,0 +1,95 @@
+int MAX = 10;
+class Heap
+{
+ int heapArr[10];
+ int size;
+public:
+ Heap()
+ {
+ size = 0;
+ }
+int parentIndex(int i)
+ {
+ return (i - 1) / 2;
+ }
+ int leftChildIndex(int i)
+ {
+ return (2 * i) + 1;
+ }
+ int rightChildIndex(int i)
+ {
+ return (2 * i) + 2;
+ }
+void swap(int a, int b)
+ {
+ int temp = heapArr[a];
+ heapArr[a] = heapArr[b];
+ heapArr[b] = temp;
+ }
+void insert(int value)
+ {
+ heapArr[size] = value;
+ int index = size;
+ size++;
+ siftUp(index);
+ }
+void siftUp(int index)
+{
+ while (index > 0)
+ {
+ int pIdx = parentIndex(index);
+ if (heapArr[index] > heapArr[pIdx])
+ {
+ swap(index, pIdx);
+ index = pIdx;
+ }
+ else
+ {
+ break;
+ }
+ }
+}
+int deleteItem()
+{
+ if (size <= 0)
+ cout << "UnderFlow!!! Queue is Empty";
+ else if (size == 1)
+ {
+ size--;
+ return heapArr[size];
+ }
+ else
+ {
+ int value = heapArr[0];
+ heapArr[0] = heapArr[size - 1];
+ size--;
+ siftDown(0);
+ return value;
+ }
+}
+void siftDown(int index){
+ int maxIndex;
+ while (true){
+ int lIdx = leftChildIndex(index);
+ int rIdx = rightChildIndex(index);
+ if (rIdx >= size){
+ if (lIdx >= size)
+ return;
+ else
+ maxIndex = lIdx;
+ }
+ else{
+ if (heapArr[lIdx] >= heapArr[rIdx])
+ maxIndex = lIdx;
+ else
+ maxIndex = rIdx;
+ }
+ if (heapArr[index] < heapArr[maxIndex]){
+ swap(index, maxIndex);
+ index = maxIndex;
+ }
+ else
+ return;
+ }
+}
+};
